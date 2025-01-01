@@ -2,12 +2,7 @@
 
 # Variables
 BUILD_DIR="build"
-BUILD_TYPE="Debug"
-
-# Use argument as build type if provided
-if [ $# -ge 1 ]; then
-  BUILD_TYPE=$1
-fi
+BUILD_TYPE="Debug" # Default build type
 
 # Create build directory if it doesn't exist
 if [ ! -d "$BUILD_DIR" ]; then
@@ -15,16 +10,26 @@ if [ ! -d "$BUILD_DIR" ]; then
   echo "Build directory created."
 fi
 
-# Run CMake and build quietly by redirecting output to /dev/null
-echo "Running CMake configuration..."
-cmake -S . -B $BUILD_DIR --log-level=ERROR
-echo "CMake configuration finished."
+# Handle configuration modes
+if [ "$1" == "debug" ]; then
+  BUILD_TYPE="Debug"
+  echo "Configuring CMake for Debug mode..."
+  cmake -S . -B $BUILD_DIR -DCMAKE_BUILD_TYPE=Debug
+  echo "CMake configuration for Debug mode finished."
+  exit 0
+elif [ "$1" == "release" ]; then
+  BUILD_TYPE="Release"
+  echo "Configuring CMake for Release mode..."
+  cmake -S . -B $BUILD_DIR -DCMAKE_BUILD_TYPE=Release
+  echo "CMake configuration for Release mode finished."
+  exit 0
+fi
 
+# Default behavior: build and execute
 echo "Building project..."
-cmake --build $BUILD_DIR --config $BUILD_TYPE
+cmake --build $BUILD_DIR
 echo "Build finished."
 
-# Run the executable and show its output
 echo "Running the executable..."
 echo ""
 echo ""
