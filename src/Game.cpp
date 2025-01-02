@@ -16,25 +16,56 @@ void Game::Init() {
     tileColors.push_back(Color({61, 61, 61, 255}));
     tileColors.push_back(Color({46, 46, 46, 255}));
 
-
     InitWindow(screenWidth, screenHeight, "Window");
     SetTargetFPS(targetFPS);
 
     ReadMap("./data/maps/01.txt");
+
+    camera = {0};
+    camera.target = {cameraTarget.x, cameraTarget.y};
+    camera.offset = {screenWidth / 2.0f, screenHeight / 2.0f};
+    camera.rotation = 0.0f;
+    camera.zoom = 1.0f;
 }
 
 void Game::Update() {
-    BeginDrawing();
-    ClearBackground(SKYBLUE);
 
-    //DrawFPS(0, 0);
+    camera.zoom += ((float)GetMouseWheelMove() * 0.05f);
+    if (camera.zoom > 3.0f) {
+        camera.zoom = 3.0f;
+    }
+    else if (camera.zoom < 0.1f) {
+        camera.zoom = 0.1f;
+    }
 
-    if (IsKeyPressed(KEY_A)) {
+    if (IsKeyDown(KEY_A)) {
+        cameraTarget.x -= 5.0;
+    }
+    else if (IsKeyDown(KEY_D)) {
+        cameraTarget.x += 5.0;
+    }
+
+    if (IsKeyDown(KEY_W)) {
+        cameraTarget.y -= 5.0;
+    }
+    else if (IsKeyDown(KEY_S)) {
+        cameraTarget.y += 5.0;
+    }
+
+    camera.target = {cameraTarget.x, cameraTarget.y};
+    
+
+    if (IsKeyPressed(KEY_M)) {
         PrintMap();
     }
 
-    DrawMap();
+    BeginDrawing();
+    ClearBackground(SKYBLUE);
+    BeginMode2D(camera);
 
+        DrawMap();
+
+    EndMode2D();
     EndDrawing();
 }
 
@@ -88,6 +119,8 @@ void Game::ReadMap(string path) {
         }
         mapGrid.push_back(currRow);
     }
+
+    cameraTarget = {(numCols * tileSize) / 2.0f, (numRows * tileSize) / 2.0f};
 }
 
 void Game::PrintMap() {
@@ -116,7 +149,8 @@ void Game::DrawMap() {
             }
         }
     }
-    
+
+    //DrawCircle(cameraTarget.x, cameraTarget.y, 5, RED);
 }
 
 

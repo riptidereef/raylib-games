@@ -19,10 +19,14 @@ class Game {
         vector<vector<int>> mapGrid;
         pair<int, int> start;
         pair<int, int> finish;
+        Vector2 cameraTarget;
+
 
         int tileSize;
 
         vector<Color> tileColors;
+
+        Camera2D camera;
 
         void ReadMap(string path);
         void PrintMap();
