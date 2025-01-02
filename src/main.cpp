@@ -1,27 +1,17 @@
 #include <raylib.h>
-#include <iostream>
-#include <fstream>
-#include <string>
+#include "game.h"
 using namespace std;
 
 int main(void) {
-    
-    string filepath = "data/maps/01.txt";
-    ifstream file(filepath);
+    Game game;
 
-    if (!file.is_open()) {
-        cerr << "Error: Could not open file " << filepath << endl;
-        return 1;
+    game.Init();
+
+    while (!WindowShouldClose()) {
+        game.Update();
     }
 
-    cout << "Contents of " << filepath << ":" << endl;
-
-    string line;
-    while (getline(file, line)) {
-        cout << line << endl;
-    }
-
-    file.close();
+    game.Shutdown();
 
     return 0;
 }
