@@ -4,6 +4,8 @@
 #include <fstream>
 #include <string>
 #include <vector>
+#include "rlgl.h"
+#include "raymath.h"
 using namespace std;
 
 class Game {
@@ -28,9 +30,15 @@ class Game {
 
         Camera2D camera;
 
+        vector<pair<int, int>> examplePath;
+        float pathThickness = 2.5f;
+
         void ReadMap(string path);
         void PrintMap();
         void DrawMap();
+        void DrawPath(vector<pair<int, int>>& path);
+        void DrawGrid2D(int rows, int cols, int size, Color color);
+
 
     public:
         void Init();

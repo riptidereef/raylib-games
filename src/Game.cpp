@@ -26,6 +26,13 @@ void Game::Init() {
     camera.offset = {screenWidth / 2.0f, screenHeight / 2.0f};
     camera.rotation = 0.0f;
     camera.zoom = 1.0f;
+
+    examplePath.push_back(make_pair(0, 0));
+    examplePath.push_back(make_pair(1, 0));
+    examplePath.push_back(make_pair(1, 1));
+    examplePath.push_back(make_pair(1, 2));
+    examplePath.push_back(make_pair(1, 3));
+    examplePath.push_back(make_pair(2, 3));
 }
 
 void Game::Update() {
@@ -64,6 +71,8 @@ void Game::Update() {
     BeginMode2D(camera);
 
         DrawMap();
+        DrawPath(examplePath);
+        DrawGrid2D(numRows, numCols, tileSize, DARKBLUE);
 
     EndMode2D();
     EndDrawing();
@@ -153,4 +162,36 @@ void Game::DrawMap() {
     //DrawCircle(cameraTarget.x, cameraTarget.y, 5, RED);
 }
 
+void Game::DrawPath(vector<pair<int, int>>& path) {
 
+    for (int i = 0; i < path.size() - 1; i++) {
+
+        pair<int, int> start;
+        pair<int, int> finish;
+
+        start = path[i];
+        finish = path[i + 1];
+
+        Vector2 startVec = {(start.first * tileSize) + (tileSize / 2.0f),
+                            (start.second * tileSize) + (tileSize / 2.0f)};
+
+        Vector2 finishVec = {(finish.first * tileSize) + (tileSize / 2.0f),
+                             (finish.second * tileSize) + (tileSize / 2.0f)};
+
+        DrawLineEx(startVec, finishVec, pathThickness, RED);
+    }
+
+}
+
+void Game::DrawGrid2D(int rows, int cols, int size, Color color) {
+
+    // Horizontal
+    for (int i = 0; i <= rows; i++) {
+        DrawLine(0, i * size, cols * size, i * size, color);
+    }
+
+    // Vertical
+    for (int i = 0; i <= cols; i++) {
+        DrawLine(i * size, 0, i * size, rows * size, color);
+    }
+}
