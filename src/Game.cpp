@@ -68,6 +68,8 @@ void Game::Update() {
 
     BeginDrawing();
     ClearBackground(SKYBLUE);
+
+
     BeginMode2D(camera);
 
         DrawMap();
@@ -75,6 +77,9 @@ void Game::Update() {
         DrawGrid2D(numRows, numCols, tileSize, DARKBLUE);
 
     EndMode2D();
+
+    DrawFPS(0, 0);
+    
     EndDrawing();
 }
 
