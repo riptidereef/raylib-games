@@ -33,4 +33,4 @@ echo "Build finished."
 echo "Running the executable..."
 echo ""
 echo ""
-$BUILD_DIR/$BUILD_TYPE/game
+$BUILD_DIR/game

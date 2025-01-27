@@ -1,3 +1,6 @@
 [submodule "lib/raylib"]
 	path = lib/raylib
 	url = https://github.com/raysan5/raylib.git
+[submodule "lib/tmxlite"]
+	path = lib/tmxlite
+	url = https://github.com/fallahn/tmxlite.git

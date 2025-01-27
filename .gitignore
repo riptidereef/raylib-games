@@ -16,3 +16,6 @@ Thumbs.db
 *.dll
 *.so
 *.dylib
+
+run.sh
+upload.sh

@@ -4,6 +4,10 @@
 #include <fstream>
 #include <string>
 #include <vector>
+#include <tmxlite/Map.hpp>
+#include <tmxlite/Layer.hpp>
+#include <tmxlite/TileLayer.hpp>
+#include <tmxlite/Tileset.hpp>
 #include "rlgl.h"
 #include "raymath.h"
 using namespace std;
@@ -12,36 +16,14 @@ class Game {
     private:
         int screenWidth;
         int screenHeight;
-        int targetFPS = 60;
+        int framesPerSecond;
 
-        ifstream mapFile;
-        int numRows;
-        int numCols;
+        tmx::Map tilemap;
 
-        vector<vector<int>> mapGrid;
-        pair<int, int> start;
-        pair<int, int> finish;
-        Vector2 cameraTarget;
-
-
-        int tileSize;
-
-        vector<Color> tileColors;
-
-        Camera2D camera;
-
-        vector<pair<int, int>> examplePath;
-        float pathThickness = 2.5f;
-
-        void ReadMap(string path);
-        void PrintMap();
-        void DrawMap();
-        void DrawPath(vector<pair<int, int>>& path);
-        void DrawGrid2D(int rows, int cols, int size, Color color);
-
+        void Debug();
 
     public:
         void Init();
-        void Update();
+        void Update(float dt);
         void Shutdown();
 };

@@ -1,17 +1,14 @@
 #include <raylib.h>
-#include "game.h"
-using namespace std;
+#include "Game.h"
 
-int main(void) {
+int main() {
     Game game;
 
     game.Init();
 
     while (!WindowShouldClose()) {
-        game.Update();
+        game.Update(GetFrameTime());
     }
 
     game.Shutdown();
-
-    return 0;
 }
