@@ -19,6 +19,14 @@ class Game {
         int framesPerSecond;
 
         tmx::Map tilemap;
+        Texture tilemapTexture;
+
+        int tileWidth = 16;
+        int tileHeight = 16;
+        int numTileRows;
+        int numTileCols;
+
+        int testInt;
 
         void Debug();
 
