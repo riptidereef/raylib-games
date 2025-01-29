@@ -21,6 +21,8 @@ void Game::Init() {
 
     icon = LoadImage("../data/sprites/Icon.png");
     SetWindowIcon(icon);
+
+    player.Init();
 }
 
 void Game::Update(float dt) {
@@ -29,6 +31,10 @@ void Game::Update(float dt) {
         ClearBackground(backgroundColor);
 
         Debug();
+
+        player.Update(dt);
+
+        DrawFPS(0, 0);
 
     EndDrawing();
 }

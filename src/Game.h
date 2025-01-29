@@ -10,6 +10,7 @@
 #include <tmxlite/Tileset.hpp>
 #include "rlgl.h"
 #include "raymath.h"
+#include "Player.h"
 using namespace std;
 
 class Game {
@@ -28,6 +29,8 @@ class Game {
         float scale = 3.0f;
 
         Image icon;
+
+        Player player;
 
         void Debug();
         void DrawMap(const tmx::Map& tilemap);
