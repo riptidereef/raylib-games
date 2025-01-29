@@ -17,7 +17,6 @@ class Game {
     private:
         int screenWidth;
         int screenHeight;
-        int framesPerSecond;
 
         tmx::Map tilemap;
         Texture tilemapTexture;

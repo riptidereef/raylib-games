@@ -3,14 +3,14 @@
 void Game::Init() {
     screenWidth = 1920;
     screenHeight = 1080;
-    framesPerSecond = 60;
 
     if (!tilemap.load("../data/tilemap/StoneDungeon.tmx")) {
         cout << "Failed to load tilemap." << endl;
     }
 
+    SetConfigFlags(FLAG_VSYNC_HINT);
     InitWindow(screenWidth, screenHeight, "RPG");
-    SetTargetFPS(framesPerSecond);
+    SetTargetFPS(240);
 
     tilemapTexture = LoadTexture("../data/tilemap/DungeonTileset.png");
 
