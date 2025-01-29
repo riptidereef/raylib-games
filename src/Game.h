@@ -25,10 +25,12 @@ class Game {
         int tileHeight = 16;
         int numTileRows;
         int numTileCols;
+        float scale = 3.0f;
 
-        int testInt;
+        Image icon;
 
         void Debug();
+        void DrawMap(const tmx::Map& tilemap);
 
     public:
         void Init();

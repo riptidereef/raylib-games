@@ -19,18 +19,16 @@ void Game::Init() {
         numTileCols = tilemapTexture.width / tileWidth;
     }
 
-    testInt = 0;
+    icon = LoadImage("../data/sprites/Icon.png");
+    SetWindowIcon(icon);
 }
 
 void Game::Update(float dt) {
     BeginDrawing();
-        ClearBackground(RAYWHITE);
+        Color backgroundColor = {62, 52, 50, 255};
+        ClearBackground(backgroundColor);
 
         Debug();
-        
-        if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
-            testInt++;
-        }
 
     EndDrawing();
 }
@@ -40,34 +38,49 @@ void Game::Shutdown() {
 }
 
 void Game::Debug() {
+    DrawMap(tilemap);
+}
 
+void Game::DrawMap(const tmx::Map& tilemap) {
+    
     for (const auto& layer : tilemap.getLayers()) {
 
-        if (layer->getType() == tmx::Layer::Type::Tile && layer->getName() == "Ground") {
+        if (layer->getType() == tmx::Layer::Type::Tile) {
 
             const auto& tileLayer = layer->getLayerAs<tmx::TileLayer>();
             const auto& tiles = tileLayer.getTiles();
 
-            const auto& currTile = tiles[testInt];
+            int currTileNum = 0;
+            int tileLayerCols = tileLayer.getSize().x;
+            int tileLayerRows = tileLayer.getSize().y;
 
+            for (const auto& currTile : tiles) {
 
-            int tilemapRow = (currTile.ID - 1) / numTileCols;
-            int tilemapCol = (currTile.ID - 1) % numTileCols;
+                if (currTile.ID == 0) {
+                    currTileNum++;
+                    continue;
+                }
 
-            Rectangle sourceRect = {
-                tilemapCol * tileWidth,
-                tilemapRow * tileWidth,
-                tileWidth,
-                tileHeight
-            };
+                int tilemapRow = (currTile.ID - 1) / numTileCols;
+                int tilemapCol = (currTile.ID - 1) % numTileCols;
 
-            Rectangle destRect = {0, 0, tileWidth * 10, tileHeight * 10};
+                Rectangle sourceRect = {
+                    (float)tilemapCol * tileWidth,
+                    (float)tilemapRow * tileWidth,
+                    (float)tileWidth,
+                    (float)tileHeight
+                };
 
-            Vector2 origin = {0, 0};
+                float destX = (currTileNum % tileLayerCols) * tileWidth * scale;
+                float destY = (currTileNum / tileLayerCols) * tileHeight * scale;
+                Rectangle destRect = {destX, destY, (float)tileWidth * scale, (float)tileHeight * scale};
 
-            DrawTexturePro(tilemapTexture, sourceRect, destRect, origin, 0, WHITE);
+                Vector2 origin = {0.0f, 0.0f};
 
-            break;
+                DrawTexturePro(tilemapTexture, sourceRect, destRect, origin, 0.0f, WHITE);
+
+                currTileNum++;
+            }
         }
     }
 }
