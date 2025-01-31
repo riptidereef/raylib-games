@@ -4,13 +4,11 @@
 #include <fstream>
 #include <string>
 #include <vector>
-#include <tmxlite/Map.hpp>
-#include <tmxlite/Layer.hpp>
-#include <tmxlite/TileLayer.hpp>
-#include <tmxlite/Tileset.hpp>
 #include "rlgl.h"
 #include "raymath.h"
 #include "Player.h"
+#include "Tilemap.h"
+#include "TextureManager.h"
 using namespace std;
 
 class Game {
@@ -18,7 +16,6 @@ class Game {
         int screenWidth;
         int screenHeight;
 
-        tmx::Map tilemap;
         Texture tilemapTexture;
 
         int tileWidth = 16;
@@ -31,8 +28,7 @@ class Game {
 
         Player player;
 
-        void Debug();
-        void DrawMap(const tmx::Map& tilemap);
+        Tilemap tilemap;
 
     public:
         void Init();

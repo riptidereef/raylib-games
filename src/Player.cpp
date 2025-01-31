@@ -4,7 +4,7 @@ void Player::Init() {
     position = {0.0f, 0.0f};
     velocity = {0.0f, 0.0f};
 
-    playerTexture = LoadTexture("../data/sprites/Wolf.png");
+    playerTexture = TextureManager::GetTexture("Wolf.png");
 }
 
 void Player::Update(float dt) {

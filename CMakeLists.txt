@@ -14,6 +14,6 @@ include_directories(lib/tmxlite/tmxlite/src)
 
 file(GLOB SRC_FILES src/*.cpp src/*.h)
 
-add_executable(game ${SRC_FILES})
+add_executable(game src/TextureManager.cpp ${SRC_FILES})
 
 target_link_libraries(game PRIVATE raylib tmxlite)
