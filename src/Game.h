@@ -15,20 +15,21 @@ class Game {
     private:
         int screenWidth;
         int screenHeight;
+        int virtualScreenWidth;
+        int virtualScreenHeight;
+        float virtualRatio = (float)screenWidth/(float)virtualScreenWidth;
 
-        Texture tilemapTexture;
+        RenderTexture2D target;
 
-        int tileWidth = 16;
-        int tileHeight = 16;
-        int numTileRows;
-        int numTileCols;
-        float scale = 3.0f;
+        Rectangle sourceRect;
+        Rectangle destRect;
+
+        Color backgroundColor;
 
         Image icon;
+        Tilemap tilemap;
 
         Player player;
-
-        Tilemap tilemap;
 
     public:
         void Init();
