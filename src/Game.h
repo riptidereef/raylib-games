@@ -4,32 +4,22 @@
 #include <fstream>
 #include <string>
 #include <vector>
-#include "rlgl.h"
 #include "raymath.h"
-#include "Player.h"
-#include "Tilemap.h"
 #include "TextureManager.h"
+#include "Map.h"
 using namespace std;
 
 class Game {
     private:
         int screenWidth;
         int screenHeight;
-        int virtualScreenWidth;
-        int virtualScreenHeight;
-        float virtualRatio = (float)screenWidth/(float)virtualScreenWidth;
-
-        RenderTexture2D target;
-
-        Rectangle sourceRect;
-        Rectangle destRect;
-
         Color backgroundColor;
-
         Image icon;
-        Tilemap tilemap;
 
-        Player player;
+        Camera2D camera;
+        float zoomLevel;
+
+        Map mainWorld;
 
     public:
         void Init();

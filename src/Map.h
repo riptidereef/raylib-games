@@ -1,26 +1,25 @@
 #pragma once
-#include <iostream>
-#include <string>
 #include <tmxlite/Map.hpp>
 #include <tmxlite/Layer.hpp>
 #include <tmxlite/TileLayer.hpp>
 #include <tmxlite/Tileset.hpp>
 #include <raylib.h>
+#include <string>
+#include <iostream>
+#include "raymath.h"
 #include "TextureManager.h"
 using namespace std;
 
-class Tilemap {
+class Map {
     private:
         string basePath = "../data/tilemap/";
         tmx::Map tilemap;
-        Texture2D tilemapTexture;
-        int tileWidth = 16;
-        int tileHeight = 16;
-        int numTileCols;
-        int numTileRows;
-        float scale = 3.0f;
+        Texture tilemapTexture;
+        int numTileRows, numTileCols;
+        int tileHeight = 32;
+        int tileWidth = 32;
 
     public:
-        void Init(const string& tilemapName);
-        void DrawMap();
+        void Init(string name);
+        void Draw();
 };

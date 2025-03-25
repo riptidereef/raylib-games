@@ -1,11 +1,11 @@
-#include "Tilemap.h"
+#include "Map.h"
 
-void Tilemap::Init(const string& tilemapName) {
-    if (!tilemap.load(basePath + tilemapName)) {
+void Map::Init(string name) {
+    if (!tilemap.load(basePath + name)) {
         cout << "Failed to load tilemap." << endl;
     }
 
-    tilemapTexture = TextureManager::GetTexture("DungeonTileset.png");
+    tilemapTexture = TextureManager::GetTexture("IsometricTiles.png");
 
     if (tilemapTexture.id != 0) {
         numTileRows = tilemapTexture.height / tileHeight;
@@ -13,7 +13,7 @@ void Tilemap::Init(const string& tilemapName) {
     }
 }
 
-void Tilemap::DrawMap() {
+void Map::Draw() {
     
     for (const auto& layer : tilemap.getLayers()) {
 
@@ -43,11 +43,14 @@ void Tilemap::DrawMap() {
                     (float)tileHeight
                 };
 
-                float destX = (currTileNum % tileLayerCols) * tileWidth * scale;
-                float destY = (currTileNum / tileLayerCols) * tileHeight * scale;
-                Rectangle destRect = {destX, destY, (float)tileWidth * scale, (float)tileHeight * scale};
+                int row = currTileNum / tileLayerCols;
+                int col = currTileNum % tileLayerCols;
+                float destX = (col - row) * (tileWidth / 2.0f);
+                float destY = (col + row) * (tileHeight / 4.0f);
 
-                Vector2 origin = {0.0f, 0.0f};
+                Rectangle destRect = {destX, destY, (float)tileWidth, (float)tileHeight};
+
+                Vector2 origin = {tileWidth / 2.0f, tileHeight / 2.0f};
 
                 DrawTexturePro(tilemapTexture, sourceRect, destRect, origin, 0.0f, WHITE);
 
